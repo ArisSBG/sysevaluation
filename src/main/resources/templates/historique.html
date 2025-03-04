@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historique des Évaluations</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+          text-align: center;
+        }
+        header {
+          background: #4CAF50;
+          color: white;
+          padding: 20px;
+          font-size: 24px;
+        }
+        section {
+          margin: 20px auto;
+          padding: 20px;
+          background: white;
+          border-radius: 10px;
+          width: 80%;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+        }
+        th, td {
+          border: 1px solid #ddd;
+          padding: 10px;
+          text-align: left;
+        }
+        th {
+          background: #f2f2f2;
+        }
+        .btn {
+          display: inline-block;
+          padding: 10px 15px;
+          background: #4CAF50;
+          color: white;
+          text-decoration: none;
+          border-radius: 5px;
+          margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Historique des Évaluations</h1>
+    <a class="btn" th:href="@{/}">Accueil</a>
+</header>
+<section>
+    <h2>Liste des Évaluations</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Critère</th>
+            <th>Note</th>
+            <th>Commentaire</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="evaluation : ${evaluations}">
+            <td th:text="${evaluation.id}"></td>
+            <td th:text="${evaluation.critere.nom}"></td>
+            <td th:text="${evaluation.note}"></td>
+            <td th:text="${evaluation.commentaire}"></td>
+            <td th:text="${evaluation.dateEvaluation}"></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>

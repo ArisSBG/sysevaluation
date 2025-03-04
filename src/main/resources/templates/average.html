@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Moyenne des Évaluations par Critère</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          text-align: center;
+          margin: 0;
+          padding: 0;
+        }
+        header {
+          background: #4CAF50;
+          color: white;
+          padding: 20px;
+          font-size: 24px;
+        }
+        section {
+          margin: 20px auto;
+          padding: 20px;
+          background: white;
+          border-radius: 10px;
+          width: 80%;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+        }
+        th, td {
+          border: 1px solid #ddd;
+          padding: 10px;
+          text-align: left;
+        }
+        th {
+          background: #f2f2f2;
+        }
+        .btn {
+          display: inline-block;
+          padding: 10px 15px;
+          background: #4CAF50;
+          color: white;
+          text-decoration: none;
+          border-radius: 5px;
+          margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Moyenne des Évaluations par Critère</h1>
+    <a class="btn" th:href="@{/}">Accueil</a>
+</header>
+<section>
+    <table>
+        <thead>
+        <tr>
+            <th>Critère</th>
+            <th>Moyenne</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="avg : ${averages}">
+            <!-- avg[0] est le critère (objet Critere) et avg[1] la moyenne -->
+            <td th:text="${avg[0].nom}">Nom du critère</td>
+            <td th:text="${#numbers.formatDecimal(avg[1], 1,2)}">0,0</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter / Modifier une Évaluation</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; }
+        header { background: #4CAF50; color: white; padding: 20px; font-size: 24px; }
+        section { margin: 20px auto; padding: 20px; background: white; border-radius: 10px; width: 50%; }
+        form { display: flex; flex-direction: column; align-items: center; }
+        label { margin-top: 10px; font-weight: bold; }
+        input, select, textarea { width: 80%; padding: 8px; margin-top: 5px; }
+        button { margin-top: 15px; padding: 10px 15px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 th:text="${evaluation.id == null} ? 'Ajouter une Évaluation' : 'Modifier une Évaluation'"></h1>
+    <a class="btn" th:href="@{/evaluation}">Retour à la liste</a>
+</header>
+
+<section>
+    <form th:action="@{/evaluation/save}" method="post" th:object="${evaluation}">
+        <input type="hidden" th:field="*{id}">
+
+        <label>Critère :</label>
+        <select th:field="*{critere.id}" required>
+            <option th:each="critere : ${criteres}" th:value="${critere.id}" th:text="${critere.nom}"></option>
+        </select>
+
+        <label>Note :</label>
+        <input type="number" th:field="*{note}" min="0" max="20" required>
+
+        <label>Commentaire :</label>
+        <textarea th:field="*{commentaire}" rows="3"></textarea>
+
+        <label>Date :</label>
+        <input type="date" th:field="*{dateEvaluation}" required>
+
+        <button type="submit">Enregistrer</button>
+    </form>
+</section>
+
+</body>
+</html>

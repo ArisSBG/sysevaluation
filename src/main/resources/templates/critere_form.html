@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Critères</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        section {
+            margin: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: auto;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+        }
+        .btn {
+            padding: 10px 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-danger {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Gestion des Critères</h1>
+    <a class="btn" th:href="@{/critere}">Retour à la liste</a>
+</header>
+
+<section>
+    <h2 th:if="${critere.id == null}">Ajouter un Critère</h2>
+    <h2 th:unless="${critere.id == null}">Modifier un Critère</h2>
+
+    <form th:action="@{${critere.id == null} ? '/critere/add' : '/critere/update'}" th:object="${critere}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <label>Nom :</label>
+        <input type="text" th:field="*{nom}" required>
+
+        <label>Description :</label>
+        <input type="text" th:field="*{description}" required>
+
+        <button type="submit" class="btn">
+            <span th:text="${critere.id == null} ? 'Ajouter' : 'Modifier'"></span>
+        </button>
+    </form>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Critères</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        section {
+            margin: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .btn {
+            padding: 10px 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+            text-decoration: none;
+        }
+        .btn-danger {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Gestion des Critères</h1>
+    <a class="btn" th:href="@{/}">Retour à l'accueil</a>
+</header>
+
+<section>
+    <h2>Liste des Critères</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Évaluations</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="critere : ${criteres}">
+            <td th:text="${critere.id}"></td>
+            <td th:text="${critere.nom}"></td>
+            <td th:text="${critere.description}"></td>
+            <td>
+                <ul>
+                    <li th:each="evaluation : ${critere.evaluations}" th:text="${evaluation.note}"></li>
+                </ul>
+            </td>
+            <td>
+                <a class="btn" th:href="@{/critere/edit/{id}(id=${critere.id})}">Modifier</a>
+                <a class="btn btn-danger" th:href="@{/critere/delete/{id}(id=${critere.id})}">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2 th:if="${critere.id == 0}">Ajouter un Critère</h2>
+    <h2 th:unless="${critere.id == 0}">Modifier un Critère</h2>
+
+    <form th:action="@{/critere/add}" method="post">
+        <input type="hidden" th:field="${critere.id}">
+        <label>Nom : <input type="text" th:field="${critere.nom}" required></label><br><br>
+        <label>Description : <input type="text" th:field="${critere.description}" required></label><br><br>
+        <button type="submit" class="btn">Enregistrer</button>
+    </form>
+</section>
+
+</body>
+</html>
